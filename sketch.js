@@ -349,8 +349,28 @@ function onGesture(g, hand) {
   if (g === "Victory") {
     resetSky();
   }
+  if (g === "ILoveYou") drawSunflower(palm.x, palm.y, 100);
 }
 // ★★★★★★ 第 5 步 结束 ★★★★★★
+
+function drawSunflower(x, y, size) {
+  // 画在持久画布上，让手势结束后花朵仍然保留
+  paint.push();
+  paint.translate(x, y);
+  paint.noStroke();
+  paint.fill("#f2c230");
+  for (let i = 0; i < 20; i++) {
+    let angle = (TWO_PI * i) / 20;
+    paint.push();
+    paint.rotate(angle);
+    paint.ellipse(size * 0.3, 0, size * 0.4, size * 0.12);
+    paint.pop();
+  }
+  // 棕色花心盖住花瓣根部
+  paint.fill("#6b3f24");
+  paint.circle(0, 0, size * 0.36);
+  paint.pop();
+}
 
 // ---------- 下面这些已经写好了，不需要改 ----------
 
