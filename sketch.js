@@ -299,8 +299,20 @@ function skyColor(x, y) {
 
 // ★★★★★★ 第 3 步 开始：把这里的 flowAngle 函数整个换成 Qwen 写的版本 ★★★★★★
 function flowAngle(x, y) {
-  // 临时版本：风永远向右吹
-  return 0;
+  let base = noise(x * 0.003, y * 0.003, frameCount * 0.002) * TWO_PI * 2;
+  let vx = cos(base);
+  let vy = sin(base);
+  for (const s of stars) {
+    let dx = x - s.x;
+    let dy = y - s.y;
+    let d = max(dist(x, y, s.x, s.y), 1);
+    if (d < s.r * 4) {
+      let weight = 1 - d / (s.r * 4);
+      vx += (-dy / d) * weight * 3;
+      vy += (dx / d) * weight * 3;
+    }
+  }
+  return atan2(vy, vx);
 }
 // ★★★★★★ 第 3 步 结束 ★★★★★★
 
