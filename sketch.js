@@ -260,12 +260,27 @@ function draw() {
 }
 
 // ★★★★★★ 第 1 步 开始：把这里的 drawBrushStroke 函数整个换成 Qwen 写的版本 ★★★★★★
+// ★★★★★★ 第 1 步 开始：把这里的 drawBrushStroke 函数整个换成 Qwen 写的版本 ★★★★★★
 function drawBrushStroke(g, x, y, angle, col) {
-  // 临时版本：只点一个小点
+  // 移动到这一笔的位置，并转到风的方向
+  g.push();
+  g.translate(x, y);
+  g.rotate(angle);
+
+  // 短而粗的笔触，两头是圆的
+  g.strokeCap(ROUND);
   g.stroke(col);
-  g.strokeWeight(2);
-  g.point(x, y);
+  g.strokeWeight(5);
+  g.line(-7, 0, 7, 0);
+
+  // 上面一道淡淡的亮边
+  g.stroke(255, 60);
+  g.strokeWeight(1.5);
+  g.line(-5, -1, 5, -1);
+
+  g.pop();
 }
+// ★★★★★★ 第 1 步 结束 ★★★★★★function drawBrushStroke(g, x, y, angle, col) {
 // ★★★★★★ 第 1 步 结束 ★★★★★★
 
 // ★★★★★★ 第 2 步 开始：把这里的 skyColor 函数整个换成 Qwen 写的版本 ★★★★★★
