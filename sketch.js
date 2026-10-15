@@ -332,7 +332,23 @@ function drawStar(s) {
 
 // ★★★★★★ 第 5 步 开始：把这里的 onGesture 函数整个换成 Qwen 写的版本 ★★★★★★
 function onGesture(g, hand) {
-  // 临时版本：还没有手势动作
+  let tip = hand.points[8];
+  let palm = hand.points[9];
+  if (g === "Pointing_Up" && stars.length < MAX_STARS) {
+    stars.push({ x: tip.x, y: tip.y, r: random(12, 24), phase: random(TWO_PI) });
+    playStarNote(stars.length);
+  }
+  if (g === "Thumb_Up" && stars.length < MAX_STARS) {
+    stars.push({ x: palm.x, y: palm.y, r: random(34, 44), phase: random(TWO_PI) });
+    playStarNote(stars.length);
+  }
+  if (g === "Closed_Fist") {
+    moon = { x: palm.x, y: palm.y };
+    playStarNote(0);
+  }
+  if (g === "Victory") {
+    resetSky();
+  }
 }
 // ★★★★★★ 第 5 步 结束 ★★★★★★
 
