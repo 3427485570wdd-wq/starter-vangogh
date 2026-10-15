@@ -280,13 +280,20 @@ function drawBrushStroke(g, x, y, angle, col) {
 
   g.pop();
 }
-// ★★★★★★ 第 1 步 结束 ★★★★★★function drawBrushStroke(g, x, y, angle, col) {
-// ★★★★★★ 第 1 步 结束 ★★★★★★
+//★★★★★★ 第 1 步 结束 ★★★★★★ 
 
 // ★★★★★★ 第 2 步 开始：把这里的 skyColor 函数整个换成 Qwen 写的版本 ★★★★★★
 function skyColor(x, y) {
-  // 临时版本：所有地方都是同一种蓝色
-  return color(40, 70, 160);
+  let n = noise(x * 0.01, y * 0.01);
+  let c = lerpColor(color("#1b2a6b"), color("#6c8fd8"), n);
+  for (const s of stars) {
+    let d = dist(x, y, s.x, s.y);
+    if (d < s.r * 2.5) {
+      c = lerpColor(c, color("#f2d34f"), 1 - d / (s.r * 2.5));
+    }
+  }
+  c.setAlpha(random(150, 230));
+  return c;
 }
 // ★★★★★★ 第 2 步 结束 ★★★★★★
 
